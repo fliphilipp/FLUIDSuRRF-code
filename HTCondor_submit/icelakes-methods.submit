@@ -1,0 +1,18 @@
+universe    = vanilla
++SingularityImage = "osdf:///ospool/ap21/data/fliphilipp/containers/icelake-container_v1.sif"
+Requirements = HAS_SINGULARITY == True && OSG_HOST_KERNEL_VERSION >= 31000
+executable  = run_py.sh
+arguments = $(granule) $(polygon)
+max_retries = 30
+success_exit_code = 69
+transfer_input_files = detect_lakes.py, icelakes/__init__.py, icelakes/utilities.py, icelakes/nsidc.py, icelakes/detection.py, misc/test1, misc/test2, $(polygon), $(polygon_full)
+transfer_output_files = detection_out_data, detection_out_plot, detection_out_stat
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+log           = logs/job_$(descriptor)-$(ClusterID)_$(granule)-$(ProcID).log
+error         = errs/job_$(descriptor)-$(ClusterID)_$(granule)-$(ProcID).err
+output        = outs/job_$(descriptor)-$(ClusterID)_$(granule)-$(ProcID).out
+request_cpus    = 1
+request_memory  = 8GB
+request_disk    = 8GB
+queue granule,polygon,descriptor,polygon_full from granule_lists/icelakes-methods.csv

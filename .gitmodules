@@ -1,0 +1,3 @@
+[submodule "simple-image-labeler"]
+	path = simple-image-labeler
+	url = https://github.com/fliphilipp/simple-image-labeler

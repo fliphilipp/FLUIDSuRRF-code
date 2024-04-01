@@ -1,0 +1,33 @@
+Bootstrap: library
+From: ubuntu:20.04
+
+%environment
+    export LC_ALL=C
+    export LC_NUMERIC=en_GB.UTF-8
+
+    # add the conda environment to PATH and activate
+    export PATH="/opt/conda/bin:$PATH"
+    . /opt/conda/bin/activate
+
+%post
+    # update and install wget 
+    apt-get update
+    apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+    apt-get clean
+
+    # install miniconda from source (to /opt/conda to not run into root access permission issues)
+    wget https://repo.anaconda.com/miniconda/Miniconda3-py39_23.5.2-0-Linux-x86_64.sh
+    bash Miniconda3-py39_23.5.2-0-Linux-x86_64.sh -b -p /opt/conda
+    rm -f Miniconda3-py39_23.5.2-0-Linux-x86_64.sh
+
+    # add the conda environment to PATH 
+    export PATH="/opt/conda/bin:$PATH"
+
+    # helps with resolving environment issues
+    conda config --env --add channels conda-forge
+    conda config --env --set channel_priority strict
+
+    # use conda to install the required packages
+    conda install -y geopandas shapely h5py rsa cmcrameri
+
+    conda update --all

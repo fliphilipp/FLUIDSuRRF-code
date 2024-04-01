@@ -1,0 +1,14 @@
+*__pycache__/
+*.ipynb_checkpoints/
+*.bash_history
+*.python_history
+*.h5
+*.zip
+*.tar.gz
+singularity_container/icelake-container_v1.sif
+*.pkl
+*.pickle
+*.DS_Store
+detection_out_plot/
+detection_out_data/
+success.txt
